@@ -1,9 +1,5 @@
-import functools
+
 import json
-from deep_translator import GoogleTranslator
-from numpy import dtype
-from threading import Thread
-import time
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from fpdf import FPDF
