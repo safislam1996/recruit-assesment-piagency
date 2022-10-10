@@ -1,8 +1,11 @@
-
+#!/usr/bin/env python
+# -*- coding: utf8 -*-
 import json
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
-from fpdf import FPDF
+from flask import render_template,Flask
+
+app=Flask()
 l=open('languages.json')
 f=open('data.json')
 languages=json.load(l)
@@ -20,37 +23,31 @@ for i in file_language:
         if(x==i):
             list_key.append(y)
 # print(list_key)
-pdf = FPDF()  
-pdf.add_page() 
+translate_list=[]
+
+ 
 for tl in list_key:
-    print(tl)
+    # print(tl)
     url=base_url+"sl=en"+"&tl="+tl+"&op=translate"
-    print(url)
+    # print(url)
     driver.get(url)
     source=driver.find_element_by_class_name('er8xn')
     string=file[0]['text']
     string=string.replace('.',' ')
-    print(string)
+    # print(string)
     result=source.send_keys(string)
     driver.implicitly_wait(20)
     translate=driver.find_element_by_xpath("//span[@class='Q4iAWc']")
-    driver.implicitly_wait(10) 
-    print(translate.text)
+    driver.implicitly_wait(10)
     
-    # pdf.set_font("Arial", size = 15) 
-    # pdf.multi_cell(200, 10, txt = i,  
-    #      align = 'C')
-    # pdf.multi_cell(200, 10, txt =translate.text, 
-    #       align = 'C')
-
-# pdf.output("PP1.pdf") 
+    translate_dict={
+    'language':tl,
+    'translated_text':translate.text
+        }
+    translate_list.append(translate_dict)
+    
+print(translate_list)
+@app.route('/')
+def index():
+    return 
 driver.close()  
-
-# sl="en"
-
-# tl="bn"
-
-# 
-# print(url)
-# driver.get(url)
-

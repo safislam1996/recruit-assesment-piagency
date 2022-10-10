@@ -1,0 +1,16 @@
+<html>
+    <head>
+        <title>Translations</title>
+    </head>
+    <body>
+        <h2>{{ text }}</h2>
+        <div>
+            <ol>
+                {%for i in range(0, lang_len)%}
+  
+                    <li>{{languages[i]}}</li>
+                {%endfor%}
+            </ol>
+        </div>
+    </body>
+</html>
